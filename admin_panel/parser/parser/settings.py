@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'parser.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '../../habr_parser/db.sqlite3',
+        'NAME': '../../db.sqlite3',
     }
 }
 

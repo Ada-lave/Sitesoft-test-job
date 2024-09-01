@@ -1,0 +1,9 @@
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=sitesoft
+    expose:
+      - 4444:5432

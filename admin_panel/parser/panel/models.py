@@ -5,8 +5,12 @@ class Hab(models.Model):
     link = models.TextField(verbose_name="Ссылка до главной страницы хаба")
     interval = models.IntegerField(verbose_name="Интервал работы")
     
+    def __str__(self) -> str:
+        return self.name
+    
     class Meta:
         db_table = "habs"
+        
     
 
 class Article(models.Model):
@@ -16,6 +20,9 @@ class Article(models.Model):
     author_link = models.CharField(max_length=200, verbose_name="Ссылка до автора")
     published_at = models.DateTimeField(verbose_name="Время публикации")
     hab = models.ForeignKey(Hab, on_delete=models.CASCADE)
+    
+    def __str__(self) -> str:
+        return self.heading
     
     class Meta:
         db_table = "articles"

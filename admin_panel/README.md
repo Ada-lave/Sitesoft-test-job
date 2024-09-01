@@ -1,0 +1,1 @@
+docker build . -t sitesoft_admin_panel && docker run sitesoft_admin_panel
