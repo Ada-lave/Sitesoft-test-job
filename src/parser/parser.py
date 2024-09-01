@@ -12,6 +12,7 @@ class HabrParser:
         self.URL = URL
 
     async def get_info_from_article(self, link: str, session) -> ArticleInfo:  
+        """Получение информации с самой публикации"""
         html = await self.fetch_html(link, session)
         soup = BeautifulSoup(html, "html.parser")
         title = soup.find("h1", class_="tm-title").text
@@ -28,6 +29,7 @@ class HabrParser:
 
 
     async def get_info_from_habr(self):
+        """Получение информации с главной страницы хаба"""
         tasks = []
         async with aiohttp.ClientSession() as session:
             html = await self.fetch_html(self.URL, session)
@@ -40,6 +42,7 @@ class HabrParser:
             return await asyncio.gather(*tasks)
         
     async def fetch_html(self, url: str, session: aiohttp.ClientSession) -> str:
+        """Парсинг любой переданной html страницы по ссылке"""
         async with session.get(url) as response:
             if response.status != 200:
                 print(f"Error fetching {url}: {response.status}")

@@ -8,7 +8,8 @@ from models.hab import HabrHab
 from parser.parser import HabrParser
 from datetime import timedelta
 
-async def parse_hab(habr_db: HabrDB, parser: HabrParser, hab: HabrHab):    
+async def parse_hab(habr_db: HabrDB, parser: HabrParser, hab: HabrHab):
+   """Получает стать с переданного хаба и сохраняет их в базу выводя данные в консоль"""    
    try:
         articles: list[ArticleInfo] = await parser.get_info_from_habr()
         print(f"HAB: {hab.name}")
@@ -19,7 +20,9 @@ async def parse_hab(habr_db: HabrDB, parser: HabrParser, hab: HabrHab):
    except Exception as e:
        print(f"Error parsing {hab.name}: {e}")
 
+
 async def start_up():
+    """Точка входа в приложение, запускает создание базы, если ее нету, а так же создает таблицы"""
     habr_db = HabrDB('db.sqlite3')
     await habr_db.seed_tables()
     await habr_db.seed_habs()
@@ -27,6 +30,7 @@ async def start_up():
         
 
 async def parse_habs(habr_db: HabrDB):
+    """Получение перечисленных хабов из базы, и запуск парсинга их начальных постов с главной страницы"""
     habs = await habr_db.get_habs()
     tasks = []
     for hab in habs:    
@@ -35,12 +39,13 @@ async def parse_habs(habr_db: HabrDB):
     await asyncio.gather(*tasks)
         
 async def schedule_task(func, habr_db, parser, hab, interval):
+    """Функция для проверки пора ли запускать обход хаба, интервал измеряется в минутах"""
     next_run = datetime.datetime.now()
     while True:
         now = datetime.datetime.now()
         if now >= next_run:
             await func(habr_db, parser, hab)
-            next_run = now + timedelta(seconds=interval)
+            next_run = now + timedelta(minutes=interval)
         await asyncio.sleep(1)
 
 
