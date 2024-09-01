@@ -23,7 +23,8 @@ async def parse_hab(habr_db: HabrDB, parser: HabrParser, hab: HabrHab):
 
 async def start_up():
     """Точка входа в приложение, запускает создание базы, если ее нету, а так же создает таблицы"""
-    habr_db = HabrDB('db.sqlite3')
+    asyncio.sleep(5)
+    habr_db = HabrDB('postgresql://sitesoft:sitesoft@db:5432/sitesoft')
     await habr_db.seed_tables()
     await habr_db.seed_habs()
     await parse_habs(habr_db)

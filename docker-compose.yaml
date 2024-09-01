@@ -1,9 +1,37 @@
 services:
+  admin_panel:
+    restart: always
+    depends_on: 
+      - db
+    entrypoint: ["/bin/bash"]
+    command: ["-c", "python manage.py migrate && gunicorn parser.wsgi:application --bind 0.0.0.0:8000"]
+    build: 
+      context: admin_panel
+      dockerfile: dockerfile
+    volumes:
+      - static_volume:/app/parser/static
+    
+    expose:
+      - 8000
+    
+  nginx:
+    build: ./nginx
+    ports:
+      - 8100:80
+    depends_on:
+      - admin_panel
+    volumes:
+      - static_volume:/app/static
+  
   db:
     image: postgres
     environment:
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=pass
+      - POSTGRES_PASSWORD=sitesoft
+      - POSTGRES_USER=sitesoft
       - POSTGRES_DB=sitesoft
-    expose:
-      - 4444:5432
+
+    ports:
+      - 5432:5432
+
+volumes:
+  static_volume:
