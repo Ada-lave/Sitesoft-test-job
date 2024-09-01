@@ -47,7 +47,7 @@ class HabrDB:
 
     async def seed_habs(self):
         habs = [
-            ("programming", "https://habr.com/ru/hubs/programming/articles/", 2),
+            ("programming", "https://habr.com/ru/hubs/programming/articles/", 10),
             ("bussines laws", "https://habr.com/ru/hubs/business-laws/articles/", 2),
         ]
 
