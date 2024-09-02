@@ -1,1 +1,0 @@
-docker exec -it sitesoft-admin_panel-1 python manage.py createsuperuser --username user --email myuser@example.com --password user
