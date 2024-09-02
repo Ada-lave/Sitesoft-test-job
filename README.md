@@ -16,6 +16,6 @@
 
 Запуск:
 
-- внутри папки *habr_parser* запустите команду `docker build . -t sitesoft_parser && docker run sitesoft_parser`
+- внутри папки *habr_parser* запустите команду `docker build . -t sitesoft_parser && docker run --name sitesoft_parser sitesoft_parser`
 
 Парсер будет выполнять свои функции в полном обьеме.
