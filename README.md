@@ -6,7 +6,7 @@
 
 # Запуск Админ Панели
 - Админ панель запускается с помощью команды `docker compose up --build`.
-- Создание админ пользователя `docker exec -it sitesoft-admin_panel-1 python manage.py createsuperuser --username sitesoft --email sitesoft@example.com`
+- Создание админ пользователя `docker exec -it sitesoft-test-job-admin_panel-1 python manage.py createsuperuser --username sitesoft --email sitesoft@example.com`
 - Введите пароль который будете использовать
 - После запуска на нее можно перейти по ссылке `localhost:8100`
 - Введите ваш логин пароль
